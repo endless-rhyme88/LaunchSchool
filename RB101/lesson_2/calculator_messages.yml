@@ -1,0 +1,60 @@
+welcome:     "Welcome to Calculator! Enter your name"
+name_error:  "Make sure to use a valid name"
+
+replay:      "Do you want to perform another calculation? (Y to calculate again)"
+goodbye:     "Thank you for using the calculator. Goodbye" 
+result:      "The result is %{result}"
+
+first_input:  "What's the first number?"
+num_error:   "Hmm... that doesn't look like a valid number"
+second_input: "What's the second number?"
+operation_error: "Please select 1, 2, 3, or 4"
+
+adding:  "We are adding your numbers together"
+subtracting: "We are subtracting your numbers"
+multiplying: "We are multiplying your numbers together"
+dividing: "We are dividing your numbers"
+
+#To Spanish
+
+welcome2:  "¡Bienvenido a Calculator! Introduce tu nombre"
+name_error2: "Asegúrese de usar un nombre válido"
+first_input2: "¿Cuál es el primer número?"
+num_error2:  "Hmm... eso no parece un número válido"
+second_input2: "¿Cuál es el segundo número?"
+operation_error2:  "Seleccione 1, 2, 3 o 4"
+lang_error: "Please select 1 or 2"
+
+adding2: "Estamos sumando sus números" 
+subtracting2: "Estamos restando tus números" 
+multiplying2: "Estamos multiplicando sus números juntos" 
+dividing2: "Estamos dividiendo tus números"
+
+replay2: "¿Quieres realizar otro cálculo? (Y para calcular de nuevo)"
+goodbye2: "Gracias por usar la calculadora. Adiós"
+
+
+#or you can nest your keys
+
+# reorganizing the calculator_messages.yml
+
+#First, we'll have to reorganize our yml configuration a little bit to account 
+#for different languages. We'll nest the message keys under a top-level language, 
+#thereby organizing all the values. Here's an example:
+
+#en:
+  #welcome: "Welcome to Calculator! Enter your name:"
+  #valid_name: "Make sure to enter a valid name."
+#es:
+  #welcome: "Bienvenido a la calculadora! Entre su nombre:"
+  #valid_name: "Asegúrese de entrar un nombre válido."
+  
+#Note that we're using two top-level keys here to distinguish between 
+#English messages and Spanish messages. We could have as many top-level keys 
+#as we want to -- one for each language our program supports.
+
+#so in your code editor when ever you want to refrence the spanish version
+#of the key, you do something like this:
+#
+#
+#MESSAGES['es']['welcome']    # => Bienvenido a la calculadora! Entre su nombre:
