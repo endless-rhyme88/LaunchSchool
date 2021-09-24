@@ -1,0 +1,3 @@
+#ignore files listed under notes
+
+notes/*.rb
