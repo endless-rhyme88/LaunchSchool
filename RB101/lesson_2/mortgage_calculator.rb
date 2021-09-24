@@ -32,6 +32,10 @@ def prompt(key)
   puts ">> #{message}"
 end
 
+def clear_prompt
+  system "clear"
+end
+
 puts "1) English or 2) Espanol?"
 language = nil
 loop do
@@ -47,6 +51,8 @@ loop do
   end
 end
 
+clear_prompt
+
 prompt("welcome")
 prompt("seperator")
 
@@ -57,6 +63,7 @@ loop do
     loop do
       print '$'
       loan_amount = gets.chomp
+      clear_prompt
       break if validate_loan_info(loan_amount)
       prompt("error")
     end
@@ -66,6 +73,8 @@ loop do
       break
     end
   end
+
+  clear_prompt
 
   prompt("get_loan_term_years")
 
@@ -99,6 +108,8 @@ loop do
     end
   end
 
+  clear_prompt
+
   prompt("the_interest_rate")
 
   interest_rate = nil
@@ -109,11 +120,14 @@ loop do
     prompt("error")
   end
 
+  clear_prompt
+
   prompt("verification")
 
   verify = nil
   if language == '1'
     loop do
+      clear_prompt
       puts <<-MSG
         Loan amount: $#{loan_amount.to_f.floor(2)}
         Years: #{loan_years}yrs
@@ -126,6 +140,7 @@ loop do
       verify = gets.chomp
       case verify
       when '1'
+        clear_prompt
         puts "Old amount: $#{loan_amount}"
         loop do
           loop do
@@ -141,6 +156,7 @@ loop do
           end
         end
       when '2'
+        clear_prompt
         puts "Last input for loan duration: #{loan_years}yrs, #{loan_months}mth"
         loop do
           loop do
@@ -162,6 +178,7 @@ loop do
           end
         end
       when '3'
+        clear_prompt
         puts "Old Interest Rate: %#{interest_rate} "
         loop do
           print "New Interest Rate: %"
@@ -177,6 +194,7 @@ loop do
     end
   else
     loop do
+      clear_prompt
       puts <<-MSG
         Monto del préstamo: $#{loan_amount.to_f.floor(2)} 
         Años: #{loan_years}años 
@@ -189,6 +207,7 @@ loop do
       verify = gets.chomp
       case verify
       when '1'
+        clear_prompt
         puts "Importe antiguo: $#{loan_amount}"
         loop do
           loop do
@@ -204,6 +223,7 @@ loop do
           end
         end
       when '2'
+        clear_prompt
         puts "plazo antiguo del préstamo #{loan_years}años, #{loan_months}meses"
         loop do
           loop do
@@ -225,6 +245,7 @@ loop do
           end
         end
       when '3'
+        clear_prompt
         puts "Tasa de interés anterior: %#{interest_rate} "
         loop do
           print "Nuevo insumo para la tasa de interés: %"
@@ -247,6 +268,7 @@ loop do
   monthly_payment = loan_amount.to_i * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_term)))
 
   if language == '1'
+    clear_prompt
     puts <<-MSG
 >> Your monthly billing totals to: 
         '$#{monthly_payment.floor(2)}' 
@@ -256,6 +278,7 @@ loop do
         #{loan_months}mth.
     MSG
   elsif language == '2'
+    clear_prompt
     puts <<-MSG
 >> Su facturación mensual asciende a: 
         '$#{monthly_payment.floor(2)}' 
@@ -266,10 +289,12 @@ loop do
     MSG
   end
 
+  clear_prompt
   prompt("replay")
   print ":"
   again = gets.chomp
   if again != 'y'.downcase
+    clear_prompt
     prompt("goodbye")
     break
   end
