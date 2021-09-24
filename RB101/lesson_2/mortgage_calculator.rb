@@ -22,7 +22,7 @@ def validate_loan_info(input)
 end
 
 def validate_interest_rate(input)
-  if input.to_i > 0 && input.to_i.to_s == input || input.to_f.to_s == input
+  if input.to_f > 0 && input.to_i.to_s == input || input.to_f.to_s == input
     (input.to_f / 10) * 100
   end
 end
@@ -52,12 +52,19 @@ prompt("seperator")
 
 loop do
   loan_amount = nil
-  prompt("get_loan_amount")
   loop do
-    print '$'
-    loan_amount = gets.chomp
-    break if validate_loan_info(loan_amount)
-    prompt("error")
+    prompt("get_loan_amount")
+    loop do
+      print '$'
+      loan_amount = gets.chomp
+      break if validate_loan_info(loan_amount)
+      prompt("error")
+    end
+    if loan_amount == '0' || loan_amount == '0.0'
+      prompt("error")
+    else
+      break
+    end
   end
 
   prompt("get_loan_term_years")
@@ -115,16 +122,23 @@ loop do
         
       1) Amount 2) Term 3) Interest Rate, or "Y" to conclude
       MSG
-
+      print ":"
       verify = gets.chomp
       case verify
       when '1'
         puts "Old amount: $#{loan_amount}"
         loop do
-          print "New Amount: $"
-          loan_amount = gets.chomp
-          break if validate_loan_info(loan_amount)
-          prompt("error")
+          loop do
+            print "New Amount: $"
+            loan_amount = gets.chomp
+            break if validate_loan_info(loan_amount)
+            prompt("error")
+          end
+          if loan_amount == '0' || loan_amount == '0.0'
+            prompt("error")
+          else
+            break
+          end
         end
       when '2'
         puts "Last input for loan duration: #{loan_years}yrs, #{loan_months}mth"
@@ -171,15 +185,23 @@ loop do
           
         1) Monto 2) Plazo 3) Tasa de interés, o "Y" para concluir
       MSG
+      print ":"
       verify = gets.chomp
       case verify
       when '1'
         puts "Importe antiguo: $#{loan_amount}"
         loop do
-          print 'Nuevo insumo para el monto del préstamo: $'
-          loan_amount = gets.chomp
-          break if validate_loan_info(loan_amount)
-          prompt("error")
+          loop do
+            print 'Nuevo insumo para el monto del préstamo: $'
+            loan_amount = gets.chomp
+            break if validate_loan_info(loan_amount)
+            prompt("error")
+          end
+          if loan_amount == '0' || loan_amount == '0.0'
+            prompt("error")
+          else
+            break
+          end
         end
       when '2'
         puts "plazo antiguo del préstamo #{loan_years}años, #{loan_months}meses"
@@ -243,7 +265,9 @@ loop do
         #{loan_months}meses.
     MSG
   end
+
   prompt("replay")
+  print ":"
   again = gets.chomp
   if again != 'y'.downcase
     prompt("goodbye")

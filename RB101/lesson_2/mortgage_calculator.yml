@@ -22,8 +22,8 @@ en:
   seperator:            "---------------------------------"
   verification:         "Please verify all information is correct"
   verify_error:         "Please choose 1), 2), 3) to verify info, or 'Y' to conclude" 
-  replay:               "Would you like to make another calculation? press 'Y' for yes "
-  goodbye:              "Thank you for using loan calculator, goodbye"
+  replay:               "Would you like to make another calculation? press 'Y' for yes or anything else to conclude"
+  goodbye:              "Thank you for using loan calculator, goodbye :)"
 es:
   welcome:              "¿Necesita ayuda con los cálculos de préstamos? "
   get_loan_amount:      "Comencemos con el monto del préstamo"
@@ -33,8 +33,8 @@ es:
   seperator:            "----------------------------------------------"
   verification:         "Por favor, verifique que toda la información sea correcta"
   verify_error:         "Elija 1), 2), 3, por favor. Elija 'Y' para concluir"
-  replay:               "¿Te gustaría hacer otro cálculo? presione 'Y' para sí "
-  goodbye:              "Gracias por usar la calculadora de préstamos, adiós"
+  replay:               "¿Te gustaría hacer otro cálculo? presione 'Y' para que sí o cualquier otra cosa concluya"
+  goodbye:              "Gracias por usar la calculadora de préstamos, adiós :>"
 
 #not used:
 the_apr:                "Annual Percentage Rate:"
