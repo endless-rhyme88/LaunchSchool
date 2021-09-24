@@ -18,12 +18,12 @@ def monthly_interest(interest_rate)
 end
 
 def validate_loan_info(input)
-  input.to_i.to_s == input || input.to_f.to_s == input
+  input.to_i >= 0 && input.to_i.to_s == input || input.to_f.to_s == input
 end
 
-def validate_interest_rate(interest)
-  if interest.to_i.to_s == interest || interest.to_f.to_s == interest
-    (interest.to_f / 10) * 100
+def validate_interest_rate(input)
+  if input.to_i >= 0 && input.to_i.to_s == input || input.to_f.to_s == input
+    (input.to_f / 10) * 100
   end
 end
 
