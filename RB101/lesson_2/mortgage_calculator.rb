@@ -22,7 +22,7 @@ def validate_loan_info(input)
 end
 
 def validate_interest_rate(input)
-  if input.to_i >= 0 && input.to_i.to_s == input || input.to_f.to_s == input
+  if input.to_i > 0 && input.to_i.to_s == input || input.to_f.to_s == input
     (input.to_f / 10) * 100
   end
 end
@@ -63,28 +63,33 @@ loop do
   prompt("get_loan_term_years")
 
   loan_years = nil
-
-  loop do
-    if language == '1'
-      print "(Years):"
-    else
-      print "(Años):"
-    end
-    loan_years = gets.chomp
-    break if validate_loan_info(loan_years)
-    prompt("error")
-  end
-
   loan_months = nil
   loop do
-    if language == '1'
-      print "(Months):"
-    else
-      print "(Meses):"
+    loop do
+      if language == '1'
+        print "(Years):"
+      else
+        print "(Años):"
+      end
+      loan_years = gets.chomp
+      break if validate_loan_info(loan_years)
+      prompt("error")
     end
-    loan_months = gets.chomp
-    break if validate_loan_info(loan_months)
-    prompt("error")
+    loop do
+      if language == '1'
+        print "(Months):"
+      else
+        print "(Meses):"
+      end
+      loan_months = gets.chomp
+      break if validate_loan_info(loan_months)
+      prompt("error")
+    end
+    if loan_years == '0' && loan_months == '0'
+      prompt("error")
+    else
+      break
+    end
   end
 
   prompt("the_interest_rate")
@@ -96,12 +101,6 @@ loop do
     break if validate_interest_rate(interest_rate)
     prompt("error")
   end
-
-  loan_term = convert_loan_term_to_months(loan_years.to_i, loan_months.to_i)
-
-  monthly_interest_rate = monthly_interest(interest_rate.to_f)
-
-  monthly_payment = loan_amount.to_i * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_term)))
 
   prompt("verification")
 
@@ -128,19 +127,25 @@ loop do
           prompt("error")
         end
       when '2'
-        puts "Last input for Years: #{loan_years}yrs"
+        puts "Last input for loan duration: #{loan_years}yrs, #{loan_months}mth"
         loop do
-          print "New input(Years):"
-          loan_years = gets.chomp
-          break if validate_loan_info(loan_years)
-          prompt("error")
-        end
-        puts "Last input for Months: #{loan_months}mth"
-        loop do
-          print "New input(Months):"
-          loan_months = gets.chomp
-          break if validate_loan_info(loan_months)
-          prompt("error")
+          loop do
+            print "New input(Years):"
+            loan_years = gets.chomp
+            break if validate_loan_info(loan_years)
+            prompt("error")
+          end
+          loop do
+            print "New input(Months):"
+            loan_months = gets.chomp
+            break if validate_loan_info(loan_months)
+            prompt("error")
+          end
+          if loan_years == '0' && loan_months == '0'
+            prompt("error")
+          else
+            break
+          end
         end
       when '3'
         puts "Old Interest Rate: %#{interest_rate} "
@@ -177,19 +182,25 @@ loop do
           prompt("error")
         end
       when '2'
-        puts "Última entrada para años: #{loan_years}años"
+        puts "plazo antiguo del préstamo #{loan_years}años, #{loan_months}meses"
         loop do
-          print "Nueva entrada(años):"
-          loan_years = gets.chomp
-          break if validate_loan_info(loan_years)
-          prompt("error")
-        end
-        puts "Última entrada para meses: #{loan_months}meses"
-        loop do
-          print "Nueva entrada(meses):"
-          loan_months = gets.chomp
-          break if validate_loan_info(loan_months)
-          prompt("error")
+          loop do
+            print "Nueva entrada(años):"
+            loan_years = gets.chomp
+            break if validate_loan_info(loan_years)
+            prompt("error")
+          end
+          loop do
+            print "Nueva entrada(meses):"
+            loan_months = gets.chomp
+            break if validate_loan_info(loan_months)
+            prompt("error")
+          end
+          if loan_years == '0' && loan_months == '0'
+            prompt("error")
+          else
+            break
+          end
         end
       when '3'
         puts "Tasa de interés anterior: %#{interest_rate} "
@@ -206,6 +217,12 @@ loop do
       end
     end
   end
+
+  loan_term = convert_loan_term_to_months(loan_years.to_i, loan_months.to_i)
+
+  monthly_interest_rate = monthly_interest(interest_rate.to_f)
+
+  monthly_payment = loan_amount.to_i * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_term)))
 
   if language == '1'
     puts <<-MSG
