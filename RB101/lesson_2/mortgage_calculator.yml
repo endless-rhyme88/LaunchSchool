@@ -1,36 +1,4 @@
-#messages for mortgage_calculator.rb
-en:
-  welcome:              "Need help with loan calculations? "
-  get_loan_amount:      "Let's start with the loan amount"
-  error:                "Invalid input. Make sure any specifiers($, %, yr..) are left off"
-  get_loan_term_years:  "Loan duration(years):"
-  get_loan_term_months: "Loan duration(months):"
-  the_interest_rate:    "Interest rate:"
-  seperator:            "---------------------------------"
-  verification:         "Please verify all information is correct"
-  verify_error:         "Please choose 1), 2), 3) to verify info, or 'Y' to conclude" 
-  replay:               "Would you like to make another calculation? press 'Y' for yes "
-  goodbye:              "Thank you for using loan calculator, goodbye"
-es:
-  welcome:              "¿Necesita ayuda con los cálculos de préstamos? "
-  get_loan_amount:      "Comencemos con el monto del préstamo"
-  error:                "Entrada no válida. No haga especificadores($, %, año..) "
-  get_loan_term_years:  "Duración del préstamo (años):"
-  get_loan_term_months: "Duración del préstamo (meses):"
-  the_interest_rate:    "Tasa de interés:"
-  seperator:            "----------------------------------------------"
-  verification:         "Por favor, verifique que toda la información sea correcta"
-  verify_error:         "Elija 1), 2), 3, por favor. Elija 'Y' para concluir"
-  replay:               "¿Te gustaría hacer otro cálculo? presione 'Y' para sí "
-  goodbye:              "Gracias por usar la calculadora de préstamos, adiós"
-#not used
-the_apr:                "Annual Percentage Rate:"
-negative_error:         "Must enter positive number"
-the_monthly_payment:    "Your monthly billing totals to for the"
-loan_check:             "Old amount: %{loan_amount}"
-loan_term_check:
-interest_rate_check:
-#psuedo-code
+#psuedo-code:
 #greet
 #ask for name
 #validate loan amount
@@ -43,3 +11,37 @@ interest_rate_check:
 #ask if theat want to calculate again
   #No then say goodbye
 #translate to spanish
+
+#messages for mortgage_calculator.rb
+en:
+  welcome:              "Need help with loan calculations? "
+  get_loan_amount:      "Let's start with the loan amount"
+  error:                "Invalid input."
+  get_loan_term_years:  "Loan duration"
+  the_interest_rate:    "Interest rate:"
+  seperator:            "---------------------------------"
+  verification:         "Please verify all information is correct"
+  verify_error:         "Please choose 1), 2), 3) to verify info, or 'Y' to conclude" 
+  replay:               "Would you like to make another calculation? press 'Y' for yes "
+  goodbye:              "Thank you for using loan calculator, goodbye"
+es:
+  welcome:              "¿Necesita ayuda con los cálculos de préstamos? "
+  get_loan_amount:      "Comencemos con el monto del préstamo"
+  error:                "Entrada no válida."
+  get_loan_term_years:  "Duración del préstamo"
+  the_interest_rate:    "Tasa de interés:"
+  seperator:            "----------------------------------------------"
+  verification:         "Por favor, verifique que toda la información sea correcta"
+  verify_error:         "Elija 1), 2), 3, por favor. Elija 'Y' para concluir"
+  replay:               "¿Te gustaría hacer otro cálculo? presione 'Y' para sí "
+  goodbye:              "Gracias por usar la calculadora de préstamos, adiós"
+
+#not used:
+the_apr:                "Annual Percentage Rate:"
+negative_error:         "Must enter positive number"
+the_monthly_payment:    "Your monthly billing totals to for the"
+loan_check:             "Old amount: %{loan_amount}"
+loan_term_check:
+interest_rate_check:
+get_loan_term_months:   "Loan duration(months):"
+get_loan_term_months:   "Duración del préstamo (meses):"

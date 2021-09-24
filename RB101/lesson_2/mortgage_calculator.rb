@@ -54,6 +54,7 @@ loop do
   loan_amount = nil
   prompt("get_loan_amount")
   loop do
+    print '$'
     loan_amount = gets.chomp
     break if validate_loan_info(loan_amount)
     prompt("error")
@@ -64,15 +65,23 @@ loop do
   loan_years = nil
 
   loop do
+    if language == '1'
+      print "(Years):"
+    else
+      print "(Años):"
+    end
     loan_years = gets.chomp
     break if validate_loan_info(loan_years)
     prompt("error")
   end
 
-  prompt("get_loan_term_months")
-
   loan_months = nil
   loop do
+    if language == '1'
+      print "(Months):"
+    else
+      print "(Meses):"
+    end
     loan_months = gets.chomp
     break if validate_loan_info(loan_months)
     prompt("error")
@@ -82,6 +91,7 @@ loop do
 
   interest_rate = nil
   loop do
+    print '%'
     interest_rate = gets.chomp
     break if validate_interest_rate(interest_rate)
     prompt("error")
@@ -99,10 +109,10 @@ loop do
   if language == '1'
     loop do
       puts <<-MSG
-        Loan amount: #{loan_amount}
-        Years: #{loan_years}
-        Months: #{loan_months}
-        Interest rate: #{interest_rate}
+        Loan amount: $#{loan_amount.to_f.floor(2)}
+        Years: #{loan_years}yrs
+        Months: #{loan_months}mth
+        Interest rate: %#{interest_rate}
         
       1) Amount 2) Term 3) Interest Rate, or "Y" to conclude
       MSG
@@ -110,28 +120,32 @@ loop do
       verify = gets.chomp
       case verify
       when '1'
-        puts "Old amount: #{loan_amount}"
+        puts "Old amount: $#{loan_amount}"
         loop do
+          print "New Amount: $"
           loan_amount = gets.chomp
           break if validate_loan_info(loan_amount)
           prompt("error")
         end
       when '2'
-        puts "Last input for Years: #{loan_years}"
+        puts "Last input for Years: #{loan_years}yrs"
         loop do
+          print "New input(Years):"
           loan_years = gets.chomp
           break if validate_loan_info(loan_years)
           prompt("error")
         end
-        puts "Last input for Months: #{loan_months}"
+        puts "Last input for Months: #{loan_months}mth"
         loop do
+          print "New input(Months):"
           loan_months = gets.chomp
           break if validate_loan_info(loan_months)
           prompt("error")
         end
       when '3'
-        puts "Old Interest Rate: #{interest_rate} "
+        puts "Old Interest Rate: %#{interest_rate} "
         loop do
+          print "New Interest Rate: %"
           interest_rate = gets.chomp
           break if validate_interest_rate(interest_rate)
           prompt("error")
@@ -145,38 +159,42 @@ loop do
   else
     loop do
       puts <<-MSG
-        Monto del préstamo: #{loan_amount} 
-        Años: #{loan_years} 
-        Meses: #{loan_months} 
-        Tasa de interés: #{interest_rate}
+        Monto del préstamo: $#{loan_amount.to_f.floor(2)} 
+        Años: #{loan_years}años 
+        Meses: #{loan_months}meses 
+        Tasa de interés: %#{interest_rate}
           
         1) Monto 2) Plazo 3) Tasa de interés, o "Y" para concluir
       MSG
       verify = gets.chomp
       case verify
       when '1'
-        puts "Importe antiguo: #{loan_amount}"
+        puts "Importe antiguo: $#{loan_amount}"
         loop do
+          print 'Nuevo insumo para el monto del préstamo: $'
           loan_amount = gets.chomp
           break if validate_loan_info(loan_amount)
           prompt("error")
         end
       when '2'
-        puts "Última entrada para años: #{loan_years}"
+        puts "Última entrada para años: #{loan_years}años"
         loop do
+          print "Nueva entrada(años):"
           loan_years = gets.chomp
           break if validate_loan_info(loan_years)
           prompt("error")
         end
-        puts "Última entrada para meses: #{loan_months}"
+        puts "Última entrada para meses: #{loan_months}meses"
         loop do
+          print "Nueva entrada(meses):"
           loan_months = gets.chomp
           break if validate_loan_info(loan_months)
           prompt("error")
         end
       when '3'
-        puts "Tasa de interés anterior: #{interest_rate} "
+        puts "Tasa de interés anterior: %#{interest_rate} "
         loop do
+          print "Nuevo insumo para la tasa de interés: %"
           interest_rate = gets.chomp
           break if validate_interest_rate(interest_rate)
           prompt("error")
@@ -205,7 +223,7 @@ loop do
        
 >> en el transcurso de: 
         #{loan_years}años. 
-        #{loan_months}mth.
+        #{loan_months}meses.
     MSG
   end
   prompt("replay")
