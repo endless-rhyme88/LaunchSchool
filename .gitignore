@@ -1,4 +1,0 @@
-#ignore files listed under notes and exercises
-
-notes/*.rb
-exercises/*.rb
