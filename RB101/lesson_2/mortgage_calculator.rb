@@ -36,6 +36,8 @@ def clear_prompt
   system "clear"
 end
 
+puts "Please select a Language"
+
 puts "1) English or 2) Espanol?"
 language = nil
 loop do
@@ -127,12 +129,11 @@ loop do
   verify = nil
   if language == '1'
     loop do
-      clear_prompt
       puts <<-MSG
         Loan amount: $#{loan_amount.to_f.floor(2)}
-        Years: #{loan_years}yrs
-        Months: #{loan_months}mth
-        Interest rate: %#{interest_rate}
+        Years: #{loan_years} yrs
+        Months: #{loan_months} mth
+        Interest rate: #{interest_rate}%
         
       1) Amount 2) Term 3) Interest Rate, or "Y" to conclude
       MSG
@@ -194,12 +195,11 @@ loop do
     end
   else
     loop do
-      clear_prompt
       puts <<-MSG
         Monto del préstamo: $#{loan_amount.to_f.floor(2)} 
-        Años: #{loan_years}años 
-        Meses: #{loan_months}meses 
-        Tasa de interés: %#{interest_rate}
+        Años: #{loan_years} años 
+        Meses: #{loan_months} meses 
+        Tasa de interés: #{interest_rate}%
           
         1) Monto 2) Plazo 3) Tasa de interés, o "Y" para concluir
       MSG
@@ -267,15 +267,16 @@ loop do
 
   monthly_payment = loan_amount.to_i * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_term)))
 
+  clear_prompt
+
   if language == '1'
-    clear_prompt
     puts <<-MSG
 >> Your monthly billing totals to: 
         '$#{monthly_payment.floor(2)}' 
           
 >> over the course of: 
-        #{loan_years}yrs.  
-        #{loan_months}mth.
+        #{loan_years} yrs.  
+        #{loan_months} mth.
     MSG
   elsif language == '2'
     clear_prompt
@@ -284,12 +285,11 @@ loop do
         '$#{monthly_payment.floor(2)}' 
        
 >> en el transcurso de: 
-        #{loan_years}años. 
-        #{loan_months}meses.
+        #{loan_years} años. 
+        #{loan_months} meses.
     MSG
   end
 
-  clear_prompt
   prompt("replay")
   print ":"
   again = gets.chomp
