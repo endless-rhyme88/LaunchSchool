@@ -22,18 +22,79 @@ def print_matchups
   MSG
 end
 
+def grand_winner(player_score, computer_score)
+  if player_score == 3
+    prompt("The grand winner is the player!!")
+  elsif computer_score == 3
+    prompt("The grand winner is the computer!!")
+  end
+end
+
 def win?(a, b)
   a.values[0].include?(b.keys[0])
+end
+
+def update_score(player, computer, scores)
+  if win?(player, computer)
+    scores[:player] += 1
+  elsif win?(computer, player)
+    scores[:computer] += 1
+  end
 end
 
 def display_results(player, computer)
   if win?(player, computer)
     prompt("ROCK!! PAPER!!: #{player.keys[0]} vs #{computer.keys[0]} You won!")
   elsif win?(computer, player)
-    prompt("ROCK!! PAPER!!: #{player.keys[0]} vs #{computer.keys[0]} Computer wins!")
+    prompt("ROCK!! PAPER!!: #{player.keys[0]} vs #{computer.keys[0]}" \
+    " Computer wins!")
   else
-    prompt("ROCK!! PAPER!!: #{player.keys[0]} vs #{computer.keys[0]} It's a tie!")
+    prompt("ROCK!! PAPER!!: #{player.keys[0]} vs #{computer.keys[0]}" \
+    " It's a tie!")
   end
+end
+
+def special_hint(computer_score, computer_choice)
+  if computer_score == 2
+    prompt("PSST!! Need a hand? I got some intel you may find useful.")
+    loop do
+      print "(Press Y or N): "
+      confirm_choice = player_input()
+      if confirm_choice == 'N'
+        clear_prompt()
+        break
+      elsif confirm_choice == 'Y'
+        clear_prompt()
+        puts "Downloading Intel...."
+        sleep(1)
+        clear_prompt()
+        prompt("The COMPUTER equipped: '#{computer_choice.keys[0]}!!'" \
+        " Good luck!")
+        break
+      else
+        prompt("Invalid input")
+      end
+    end
+  end
+end
+
+def help_menu
+  clear_prompt()
+  print_matchups
+  loop do
+    print '(Press L to leave):'
+    confirm_choice = player_input
+    if confirm_choice == 'L'
+      clear_prompt()
+      break
+    else
+      prompt("Invalid input")
+    end
+  end
+end
+
+def weapon_assignment(player)
+  VALID_CHOICES.select { |k, _| k.capitalize.match?(player) }
 end
 
 def clear_prompt
@@ -41,46 +102,46 @@ def clear_prompt
 end
 
 def prompt(message)
-  puts ">>#{message.strip}"
+  puts ">> #{message.strip}"
 end
 
-prompt("Welcome to Rock, Paper, Spock. the first to 3 wins The match..choose your weapon:")
+def player_input
+  gets.chomp.capitalize
+end
+
+# MAIN CODE HERE
+
+prompt("Welcome to Rock, Paper, Spock. the first to 3 wins The match..")
+
+loop do
+  prompt('It plays just like regular Rock Paper Scissors,' \
+  'do know the match ups?')
+  print '(Press Y or N): '
+  confirm_choice = player_input()
+  if confirm_choice == 'Y' || confirm_choice == 'Yes'
+    clear_prompt
+    break
+  elsif confirm_choice == 'N' || confirm_choice == 'No'
+    help_menu()
+  else
+    prompt('Invalid input')
+  end
+end
+
+prompt("choose your weapon:")
 
 computer_choice = ''
 player_choice = ''
-player_score = 0
-computer_score = 0
+scores = { player: 0, computer: 0 }
 round_num = 0
 
 loop do
-  until computer_score == 3 || player_score == 3
+  until scores[:computer] == 3 || scores[:player] == 3
 
     computer_choice = VALID_CHOICES.to_a.sample(1).to_h
-
-    get_confirm = ''
-
-    if computer_score == 2
-      prompt("PSST!! Need a hand? I got some intel you may find useful.")
-      loop do
-        print "(Press Y or N):"
-        get_confirm = gets.chomp.capitalize
-        if get_confirm == 'N'
-          clear_prompt
-          break
-        elsif get_confirm == 'Y'
-          clear_prompt
-          puts "Downloading Intel...."
-          sleep(1)
-          clear_prompt
-          prompt("The COMPUTER equipped: '#{computer_choice.keys[0]}!!' good luck!")
-          break
-        else
-          prompt("Invalid input")
-        end
-      end
-    end
-    prompt("PLAYER: #{player_score}, COMPUTER: #{computer_score}")
-
+    confirm_choice = ''
+    special_hint(scores[:computer], computer_choice)
+    prompt("PLAYER: #{scores[:player]}, COMPUTER: #{scores[:computer]}")
     prompt("ROUND: #{round_num + 1}!!")
     loop do
       loop do
@@ -91,97 +152,72 @@ loop do
           SC)  = scissors
           L)   = lizard
           SP)  = spock
-                            press  H) for help
+                            press  M) for Matchups
         MSG
-        print 'I equip:'
-        player_choice = gets.chomp.capitalize
+        print 'I equip: '
+        player_choice = player_input()
         if %w[R P Sc L Sp Rock Paper Scissors Lizard Spock].include?(player_choice)
-          player_choice = VALID_CHOICES.select { |k, _| k.capitalize.match?(player_choice) }
+          player_choice = weapon_assignment(player_choice)
           break
-        elsif player_choice == 'H'
-          clear_prompt
-          print_matchups
-          loop do
-            print '(Press L to leave):'
-            get_confirm = gets.chomp.capitalize
-            if get_confirm == 'L'
-              clear_prompt
-              break
-            else
-              prompt("Invalid input")
-            end
-          end
+        elsif player_choice == 'M'
+          help_menu()
         else
+          clear_prompt()
           prompt('Invalid input')
         end
       end
 
-      clear_prompt
+      clear_prompt()
 
       prompt("The path of #{player_choice.keys[0]}, is the path you choose?")
 
-      get_confirm = ''
+      confirm_choice = ''
       loop do
-        print "(Press Y or N):"
-        get_confirm = gets.chomp.capitalize
-        if get_confirm == 'Y'
+        print "(Press Y or N): "
+        confirm_choice = player_input()
+        if confirm_choice == 'Y' || confirm_choice == 'Yes'
           break
-        elsif get_confirm == 'N'
+        elsif confirm_choice == 'N' || confirm_choice == 'No'
           break
         else
           prompt("Invalid input")
         end
       end
-      clear_prompt
-      break unless get_confirm == 'N'
+      clear_prompt()
+      break unless confirm_choice == 'N' || confirm_choice == 'No'
     end
 
-    clear_prompt
-
+    clear_prompt()
     puts "Processing..."
-
     sleep(0.99)
-
-    clear_prompt
-
+    clear_prompt()
     display_results(player_choice, computer_choice)
-
     round_num += 1
-
-    if win?(player_choice, computer_choice)
-      player_score += 1
-    elsif win?(computer_choice, player_choice)
-      computer_score += 1
-    end
-
-    if player_score == 3
-      prompt("The grand winner is the player!!")
-    elsif computer_score == 3
-      prompt("The grand winner is the computer!!")
-    end
+    update_score(player_choice, computer_choice, scores)
+    grand_winner(scores[:player], scores[:computer])
   end
 
   prompt("Wanna play again?")
 
   play_again = ''
   loop do
-    print '(Press Y or N):'
-    play_again = gets.chomp.capitalize
-    if play_again == 'N'
+    print '(Press Y or N): '
+    play_again = player_input()
+    if play_again == 'N' || play_again == 'No'
       puts "Hope you had fun! :)"
       break
-    elsif play_again == 'Y'
-      player_score = 0
-      computer_score = 0
+    elsif play_again == 'Y' || play_again == 'Yes'
+      scores[:player] = 0
+      scores[:computer] = 0
       round_num = 0
       break
     else
       prompt("Invalid input")
     end
   end
-  break unless play_again == 'Y'
-  clear_prompt
+  break unless play_again == 'Y' || play_again == 'Yes'
+  clear_prompt()
   puts "Resetting.."
   sleep(0.99)
-  clear_prompt
+  clear_prompt()
 end
