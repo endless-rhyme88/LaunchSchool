@@ -198,7 +198,6 @@ loop do
   end
 
   prompt("Wanna play again?")
-
   play_again = ''
   loop do
     print '(Press Y or N): '
